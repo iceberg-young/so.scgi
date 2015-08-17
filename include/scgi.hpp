@@ -9,22 +9,45 @@
 #include <stdexcept>
 
 namespace so {
-    using scgi_headers_t=std::map<std::string, std::string>;
+    namespace scgi {
+        using headers_t = std::map<std::string, std::string>;
+
+        // Header name specified in RFC 2616
+        constexpr char request_uri[]{"REQUEST_URI"};
+
+        // Header names specified in RFC 3875
+        constexpr char content_type[]{"CONTENT_TYPE"};
+        constexpr char request_method[]{"REQUEST_METHOD"};
+        constexpr char query_string[]{"QUERY_STRING"};
+
+        constexpr char remote_address[]{"REMOTE_ADDR"};
+        constexpr char remote_port[]{"REMOTE_PORT"};
+
+        constexpr char server_name[]{"SERVER_NAME"};
+        constexpr char server_port[]{"SERVER_PORT"};
+        constexpr char server_protocol[]{"SERVER_PROTOCOL"};
+
+        // Header names from unknown source
+        constexpr char document_root[]{"DOCUMENT_ROOT"};
+        //^ Part of PATH_TRANSLATED
+        constexpr char document_uri[]{"DOCUMENT_URI"};
+        //^ Alias of PATH_INFO
+    }
 
     class scgi_client :
-      public scgi_headers_t {
+      public scgi::headers_t {
      public:
         scgi_client() {}
 
-        scgi_client(std::initializer_list<scgi_headers_t::value_type> headers) :
-          scgi_headers_t(headers) {}
+        scgi_client(std::initializer_list<scgi::headers_t::value_type> headers) :
+          scgi::headers_t(headers) {}
 
      public:
         std::string encode(size_t content = 0) const;
     };
 
     class scgi_server :
-      public scgi_headers_t {
+      public scgi::headers_t {
      public:
         scgi_server() :
           content_length(0),
