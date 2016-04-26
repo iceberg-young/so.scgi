@@ -1,0 +1,14 @@
+rule archive
+  command = $ar rcs $out $in
+
+compile_options = -flto -fPIC -O3 -std=c++14 -Wall
+
+rule compile
+  command = $gcc -MMD -MF $out.d $compile_options $includes -c $in -o $out
+  depfile = $out.d
+  deps = gcc
+
+program_options = -flto
+
+rule program
+  command = $gcc $libraries $in -o $out
