@@ -1,0 +1,27 @@
+{
+	"name": "so.scgi",
+	"version": "1.0.0",
+	"license": "LGPL-3.0",
+	"author": "Iceberg YOUNG <iceberg.young@gmail.com>",
+	"keywords": [
+		"SCGI"
+	],
+	"main": "$.a",
+	"provides": {
+		"$.a": {
+			"type": "lib",
+			"rule": "archive",
+			"source": {
+				"source/*.cpp": "compile"
+			}
+		}
+	},
+	"tests": {
+		"example": {
+			"rule": "program",
+			"source": {
+				"example.cpp": "compile"
+			}
+		}
+	}
+}
