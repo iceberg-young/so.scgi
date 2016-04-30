@@ -4,12 +4,12 @@ ar = gcc-ar-5
 gcc = g++-5
 includes = -I ../include
 
-include rules.ninja
-
+# provide [so.scgi]
 build .midway/source/scgi.o: compile ../source/scgi.cpp
-build .midway/example.o: compile ../example.cpp
-
 build lib/so.scgi.a: archive .midway/source/scgi.o
+
+# tests [example]
+build .midway/example.o: compile ../example.cpp
 build test/example: program $
   .midway/example.o $
   lib/so.scgi.a
